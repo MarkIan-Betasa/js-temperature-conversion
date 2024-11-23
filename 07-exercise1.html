@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=>, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function tempConversion(value, unit, convertInto) {
+      let convertedResult;
+
+      const conversionSelection = {
+        value: value,
+        oldUnit: unit.toUpperCase(),
+        newUnit: convertInto.toUpperCase(),
+        unitChoices: { "CELSIUS": 1, "FAHRENHEIT": 2, "KELVIN": 3 },
+      };
+
+      // Validate input units
+      if (
+        !conversionSelection.unitChoices[conversionSelection.oldUnit] ||
+        !conversionSelection.unitChoices[conversionSelection.newUnit]
+      ) {
+        console.error("Invalid unit provided!");
+        return;
+      }
+
+      switch (conversionSelection.unitChoices[conversionSelection.oldUnit]) {
+        case 1: // Celsius
+          if (conversionSelection.unitChoices[conversionSelection.newUnit] === 1) {
+            convertedResult = conversionSelection.value; // Celsius to Celsius
+          } 
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 2) {
+            convertedResult = conversionSelection.value * (9 / 5) + 32; // Celsius to Fahrenheit
+          } 
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 3) {
+            convertedResult = conversionSelection.value + 273.15; // Celsius to Kelvin
+          }
+          break;
+
+        case 2: // Fahrenheit
+          if (conversionSelection.unitChoices[conversionSelection.newUnit] === 1) {
+            convertedResult = (conversionSelection.value - 32) * (5 / 9); // Fahrenheit to Celsius
+          } 
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 2) {
+            convertedResult = conversionSelection.value; // Fahrenheit to Fahrenheit
+          } 
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 3) {
+            convertedResult = (conversionSelection.value - 32) * (5 / 9) + 273.15; // Fahrenheit to Kelvin
+          }
+          break;
+
+        case 3: // Kelvin
+          if (conversionSelection.unitChoices[conversionSelection.newUnit] === 1) {
+            convertedResult = conversionSelection.value - 273.15; // Kelvin to Celsius
+          }
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 2) {
+            convertedResult = (conversionSelection.value - 273.15) * (9 / 5) + 32; // Kelvin to Fahrenheit
+          }
+          else if (conversionSelection.unitChoices[conversionSelection.newUnit] === 3) {
+            convertedResult = conversionSelection.value; // Kelvin to Kelvin
+          }
+          break;
+
+        default:
+          console.error("Invalid unit provided!");
+          return;
+      }
+
+      printResult(
+        conversionSelection.value,
+        conversionSelection.oldUnit,
+        conversionSelection.newUnit,
+        convertedResult
+      );
+    }
+
+    function printResult(value, unit, convertInto, convertedResult) {
+      console.log(`${unit}: ${value} to ${convertInto}: ${convertedResult.toFixed(2)}`);
+    }
+
+    // Test Cases
+    tempConversion(100, "celsius", "fahrenheit");
+    tempConversion(100, "celsius", "celsius");
+    tempConversion(50, "celsius", "FAHRENHEIT");
+    tempConversion(25, "celsius", "faHrenHeit");
+    tempConversion(0, "celsius", "kelvin");
+
+    tempConversion(100, "fahrenheit", "celsius");
+    tempConversion(50, "fahrenheit", "FAHRENHEIT");
+    tempConversion(0, "fahrenheit", "kelvin");
+
+    tempConversion(100, "kelvin", "celsius");
+    tempConversion(50, "kelvin", "FAHRENHEIT");
+    tempConversion(0, "kelvin", "kelvin");
+
+    // Invalid Test Cases
+    tempConversion(100, "invalid", "kelvin");
+    tempConversion(100, "celsius", "wrongUnit");
+
+
+    //function that takes the value as well as the unit of temperature, then convert in to requested conversion
+    // K => C
+    // C => F
+    // F=> C
+    // I should limit the redundancy of my codes
+
+    //tolowercase => I want to make it so that it would be case insensitive
+    
+    //next i should check for invalid input
+
+  </script>
+</body>
+</html>
